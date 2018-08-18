@@ -1,0 +1,4 @@
+Max eigenvalue by degree method: 9.370194290580299
+Eigenvector: [0.59806266 0.26443573 0.59197104 0.47113171]
+Min eigenvalue by degree method: 2.348202279289496
+Eigenvector: [-0.23179403  0.8194867  -0.40074364  0.337813  ]
