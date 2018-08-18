@@ -58,36 +58,39 @@ def adams_4(func, h, x0, y0):
     return Y
 
 
-func = lambda x, y: 3 * pow(x, 2) * y + pow(x,2) * math.exp(pow(x, 3))
-y_real = lambda x: pow(x,3) * math.exp(pow(x, 3))
+#func = lambda x, y: -1 / (y*pow((1-pow(x, 2))/(1-pow(y, 2)), 0.5))
+#y_real = lambda x: pow(4*math.asinh(pow(pow(x-1, 0.5)/pow(2, 0.5), 2)) + 1, 0.5)
+
+func = lambda x, y: (2*pow(x, 2)) / (1+pow(x, 2)) - (2*x*y) / (1+pow(x, 2))
+y_real = lambda x: (2/3 *(1/(pow(x, 2) +1))) * (1+pow(x,3))
 
 X = get_X(0, 0.1)
 answers = [y_real(i) for i in X]
 
-H = np.linspace(0.001, 0.1, 10)
-predictions_runge_cutta = [runge_cutta_4(func, h, 0, 0) for h in H]
-errors_runge_cutta = error(answers, runge_cutta_4(func, 0.1, 0, 0))
+H = np.linspace(0.001, 0.1, 20)
+predictions_runge_cutta = [runge_cutta_4(func, h, 0, 2/3) for h in H]
+errors_runge_cutta = error(answers, runge_cutta_4(func, 0.1, 0, 2/3))
 errors_runge_cutta_h = [error_([y_real(i) for i in get_X(0, h)],
                                predictions_runge_cutta[i], h) for i, h in enumerate(H)]
 
 
 
-predictions_adams = [adams_4(func, h, 0, 0) for h in H]
-errors_adams = error(answers, adams_4(func, 0.1, 0, 0))
+predictions_adams = [adams_4(func, h, 0, 2/3) for h in H]
+errors_adams = error(answers, adams_4(func, 0.1, 0, 2/3))
 errors_adams_h = [error_([y_real(i) for i in get_X(0, h)],
                                predictions_adams[i], h) for i, h in enumerate(H)]
 
 
 frame = pd.DataFrame(columns=['Y_real', 'Runge_Cutt', 'Adams', 'Errors_Runge_Cutta', 'Errors_Adams'])
 frame['Y_real'] = pd.Series(answers)
-frame['Runge_Cutt'] = pd.Series(runge_cutta_4(func, 0.1, 0, 0))
-frame['Adams'] = pd.Series(adams_4(func, 0.1, 0, 0))
+frame['Runge_Cutt'] = pd.Series(runge_cutta_4(func, 0.1, 0, 2/3))
+frame['Adams'] = pd.Series(adams_4(func, 0.1, 0, 2/3))
 frame['Errors_Runge_Cutta'] = pd.Series(errors_runge_cutta)
 frame['Errors_Adams'] = pd.Series(errors_adams)
 frame.to_csv('results.csv', index = False)
 
 plt.title('Решение (h=0.1)')
-plt.plot(X, answers, 'r', X, runge_cutta_4(func, 0.1, 0, 0), 'b', X, adams_4(func, 0.1, 0, 0))
+plt.plot(X, answers, 'r', X, runge_cutta_4(func, 0.1, 0, 2/3), 'b', X, adams_4(func, 0.1, 0, 2/3), 'y')
 plt.legend(['Точное решение', 'Метод Рунге-Кутты', 'Метод Адамса'])
 plt.xlabel('X')
 plt.ylabel('Y')
