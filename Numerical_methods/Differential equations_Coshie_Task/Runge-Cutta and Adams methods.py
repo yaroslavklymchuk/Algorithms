@@ -60,8 +60,9 @@ def adams_4(func, h, x0, y0):
 
 #x0 = 1, y0 = 1
 #func = lambda x, y: -1 / (y*pow((1-pow(x, 2))/(1-pow(y, 2)), 0.5))
-#y_real = lambda x: pow(4*math.asinh(pow(pow(x-1, 0.5)/pow(2, 0.5), 2)) + 1, 0.5)
+#y_real = lambda x: pow(1 - pow(math.acos(x), 2), 0.5)
 
+#x0 = 0, y0=1
 func = lambda x, y: (3*y - x - 4) / (3*x + 3)
 y_real = lambda x: 1 - (x+1)*math.log(math.fabs(x+1)) / 3
 
