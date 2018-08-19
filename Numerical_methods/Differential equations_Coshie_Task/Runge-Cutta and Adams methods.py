@@ -8,9 +8,11 @@ import pandas as pd
 def error(y_true, y_pred):
     return [(el - el1) for el, el1 in zip(y_true, y_pred)]
 
-def error_(y_true, y_pred, h):
+def error_L2(y_true, y_pred, h):
     return np.sqrt(np.sum([np.power(el, 2) for el in error(y_true, y_pred)]) * h)
 
+def uniform_error(y_true, y_pred):
+    return np.max(np.fabs(error(y_true, y_pred)))
 
 def get_X(x0, h):
     N = int(1/h)
@@ -73,16 +75,19 @@ answers = [y_real(i) for i in X]
 H = np.linspace(0.001, 0.1, 10)
 predictions_runge_cutta = [runge_cutta_4(func, h, 0, 1) for h in H]
 errors_runge_cutta = error(answers, runge_cutta_4(func, 0.1, 0, 1))
-errors_runge_cutta_h = [error_([y_real(i) for i in get_X(0, h)],
+errors_runge_cutta_h_L2 = [error_L2([y_real(i) for i in get_X(0, h)],
                                predictions_runge_cutta[i], h) for i, h in enumerate(H)]
 
+errors_runge_cutta_h_uniform = [uniform_error([y_real(i) for i in get_X(0, h)],
+                               predictions_runge_cutta[i]) for i, h in enumerate(H)]
 
 
 predictions_adams = [adams_4(func, h, 0, 1) for h in H]
 errors_adams = error(answers, adams_4(func, 0.1, 0, 1))
-errors_adams_h = [error_([y_real(i) for i in get_X(0, h)],
+errors_adams_h_L2 = [error_L2([y_real(i) for i in get_X(0, h)],
                                predictions_adams[i], h) for i, h in enumerate(H)]
-
+errors_adams_h_uniform = [uniform_error([y_real(i) for i in get_X(0, h)],
+                               predictions_adams[i]) for i, h in enumerate(H)]
 
 frame = pd.DataFrame(columns=['Y_real', 'Runge_Cutt', 'Adams', 'Errors_Runge_Cutta', 'Errors_Adams'])
 frame['Y_real'] = pd.Series(answers)
@@ -92,17 +97,34 @@ frame['Errors_Runge_Cutta'] = pd.Series(errors_runge_cutta)
 frame['Errors_Adams'] = pd.Series(errors_adams)
 frame.to_csv('results.csv', index = False)
 
-plt.title('Решение (h=0.1)')
-plt.plot(X, answers, 'r', X, runge_cutta_4(func, 0.1, 0, 1), 'b', X, adams_4(func, 0.1, 0, 1), 'y')
-plt.legend(['Точное решение', 'Метод Рунге-Кутты', 'Метод Адамса'])
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.show()
-plt.title('График зависимости ошибок от h')
-plt.plot(H, errors_runge_cutta_h, 'y', H, errors_adams_h, 'b')
-plt.legend(['Ошибка метода Рунге-Кутта', 'Ошибка метода Адамса'])
-plt.xlabel('H')
-plt.ylabel('Ошибка')
-plt.show()
+
+titles = ['Решение (h=0.1)', 'График зависимости ошибок от h (L2 norm)',
+          'График зависимости ошибок от h (C norm)']
+legends = [['Точное решение', 'Метод Рунге-Кутты', 'Метод Адамса'],
+           ['Ошибка метода Рунге-Кутта', 'Ошибка метода Адамса'],
+           ['Ошибка метода Рунге-Кутта', 'Ошибка метода Адамса']]
+
+values_to_plot = [(X, answers, 'r', X, runge_cutta_4(func, 0.1, 0, 1), 'b', X,
+                   adams_4(func, 0.1, 0, 1), 'y'),
+                  (H, errors_runge_cutta_h_L2, 'y', H, errors_adams_h_L2, 'b'),
+                  (H, errors_runge_cutta_h_uniform, 'y', H, errors_adams_h_uniform, 'b')]
+
+labels = [('X', 'Y'), ('H', 'Ошибка'), ('H', 'Ошибка')]
+
+
+
+for i in range(3):
+    plt.title(titles[i])
+    if i == 0:
+        plt.plot(values_to_plot[i][0], values_to_plot[i][1], values_to_plot[i][2],
+                 values_to_plot[i][3], values_to_plot[i][4], values_to_plot[i][5],
+                 values_to_plot[i][6], values_to_plot[i][7], values_to_plot[i][8])
+    else:
+        plt.plot(values_to_plot[i][0], values_to_plot[i][1], values_to_plot[i][2],
+                 values_to_plot[i][3], values_to_plot[i][4], values_to_plot[i][5])
+    plt.legend(legends[i])
+    plt.xlabel(labels[i][0])
+    plt.ylabel(labels[i][1])
+    plt.show()
 
 

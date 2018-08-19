@@ -1,5 +1,3 @@
-#Странно ошибка рисуеться
-
 '''
 a = 1.600
 b = -0.980
@@ -77,8 +75,11 @@ class Boundary_Task:
 def error(y_true, y_pred):
     return [(el - el1) for el, el1 in zip(y_true, y_pred)]
 
-def error_(y_true, y_pred, h):
+def error_L2(y_true, y_pred, h):
     return np.sqrt(np.sum([np.power(el, 2) for el in error(y_true, y_pred)]) * h)
+
+def uniform_error(y_true, y_pred):
+    return np.max(np.fabs(error(y_true, y_pred)))
 
 def Get_X(x1, x2, N):
     h = (x2 - x1) / N
@@ -103,7 +104,7 @@ def process(obj, N):
     c[0] = (obj.b0 - obj.a0*h) / (m[0]*(obj.b0-obj.a0*h) + n[0]*obj.b0)
     d[0] = n[0]*obj.A()*h/(obj.b0-obj.a0*h)+obj.f(X[0])*pow(h, 2)
 
-    print('{}, {}, {}, {}'.format(m[0], n[0], c[0], d[0]))
+    #print('{}, {}, {}, {}'.format(m[0], n[0], c[0], d[0]))
 
     for i in range(1, N-1):
         m[i] = h * p(X[i]) - 2
@@ -125,10 +126,11 @@ def process(obj, N):
         print('{}, x={}, {} vs {}, {}'.format(i, X[i], y(X[i], obj.a, obj.b, obj.c, obj.d, obj.e),
                                     Y0[i], (y(X[i], obj.a, obj.b, obj.c, obj.d, obj.e) - Y0[i])))
 
-    frame = pd.DataFrame(columns=['Y_real', 'Y_prediction', 'Error'])
+    frame = pd.DataFrame(columns=['X[i]','Y_real', 'Y_prediction', 'Error'])
+    frame['X[i]'] = pd.Series(np.array([X[i] for i in range(N+1)]))
     frame['Y_real'] = pd.Series(np.array([y(X[i], obj.a, obj.b, obj.c, obj.d, obj.e) for i in range(N+1)]))
     frame['Y_prediction'] = pd.Series(np.array([Y0[i] for i in range(N+1)]))
-    frame['Error'] = pd.Series(np.array(error(frame['Y_real'].values, frame['Y_prediction'].values)))
+    frame['Error'] = frame.apply(lambda row: row['Y_real'] - row['Y_prediction'], axis=1)
     frame.to_csv('results.csv', index = False)
 
     return Y0
@@ -137,14 +139,24 @@ N = 10000
 
 obj = Boundary_Task(1.600,-0.980, -2.069, 1.759,-0.078, 1.2, 1.5, 0, 1, 2, -1)
 
+
 H = np.linspace(0.0001, 0.1, 100)
 answer = [y(Get_X(obj.x1, obj.x2, N)[0][i], obj.a, obj.b, obj.c, obj.d, obj.e) for i in range(N+1)]
 prediction = process(obj,N)
 
-error_values = [error_(answer, prediction, h) for h in H]
+error_values_L2 = [error_L2(answer, prediction, h) for h in H]
+error_values_uniform = [uniform_error(answer, prediction) for h in H]
 
-plt.plot(H, error_values, 'r')
-plt.title('График зависимости ошибки(L2) от h')
-plt.xlabel('H')
-plt.ylabel('Error')
-plt.show()
+
+#C norm is constant for all h
+values_to_plot = [(H, error_values_L2), (H, error_values_uniform)]
+titles = ['График зависимости ошибки(L2) от h', 'График зависимости ошибки(C) от h']
+labels = [('H', 'L2_error'), ('H', 'C_error')]
+
+for i in range(1):
+    plt.plot(values_to_plot[i][0], values_to_plot[i][1])
+    plt.title(titles[i])
+    plt.xlabel(labels[i][0])
+    plt.ylabel(labels[i][1])
+    plt.show()
+

@@ -1,7 +1,10 @@
+# графики
 import math
+import os
+
 import numpy as np
 import matplotlib.pyplot as plt
-
+import pandas as pd
 
 u0 = lambda x: 3*x*(1-x)
 du0 = lambda x: 3 - 6*x
@@ -30,13 +33,11 @@ U = [[0 for i in range(N+1)] for j in range(K+1)]
 for n in range(N+1):
     U[0][n] = u0(n * h)
 
-print(np.array(U).shape)
 
 for k in range(1, K+1):
     U[k][0] = u1(k * thao)
     U[k][N] = u2(k * thao)
 
-print(np.array(U))
 
 for n in range(1, N):
     U[1][n] = U[0][n]+(pow(thao, 2)/2)*((U[0][n+1]-2*U[0][n]+U[0][n+1])/pow(h, 2)
@@ -71,14 +72,18 @@ for k in range(2, K+1):
     for i in range(1, N):
         U[k][i] = y[i]
 
-print(np.array(U))
+#print(np.array(U))
 
 f = [0 for i in range(K+1)]
 y = [0 for i in range(K+1)]
 
-file = open('results.txt', 'w')
-file.write('t' + '  \t' + '||u||(t)' + '    \t' + 'e(t)')
-file.write('\n')
+
+#file = open('results.txt', 'w')
+#file.write('t' + '  \t' + '||u||(t)' + '    \t' + 'e(t)')
+#file.write('\n')
+F_values = []
+Y_values = []
+Thao_values = []
 for i in range(K+1):
     for j in range(N+1):
 
@@ -87,27 +92,51 @@ for i in range(K+1):
         elif (f[i] < math.fabs(u(h*j, thao*i) - U[i][j])):
             f[i] = math.fabs(u(h*j, thao*i) - U[i][j])
 
+        Y_values.append(y[i]) #||u||(t)
+        F_values.append(f[i]) # e(t)
+        Thao_values.append(thao*i)
+        #file.write(str(thao*i)+'        \t'+str(y[i]) + '           \t\t'+str(f[i]))
+        #file.write('\n')
 
-        file.write(str(thao*i)+'        \t'+str(y[i]) + '           \t\t'+str(f[i]))
-        file.write('\n')
 
-file.write('\n')
+frame1 = pd.DataFrame({'t':Thao_values,
+                        '$$ ||u|| (t) $$': Y_values,
+                       'e(t)': F_values})
 
-file.write('t = %s' % str(2))
-file.write('x\t\t' + ' \t\t' + 'u(x)\t\t' + '   \t\t' + 'e(x)')
-file.write('\n')
+frame1.to_csv(os.getcwd() + r'/results1.csv', index=False)
+#file.write('\n')
+
+#ile.write('t = %s' % str(2))
+#file.write('x\t\t' + ' \t\t' + 'u(x)\t\t' + '   \t\t' + 'e(x)')
+#file.write('\n')
+H_values = []
+U_values = []
+norma_values = []
 for i in range(N+1):
-    file.write(str(h*i)+' \t'+str(U[k][i])+'\t'+str(math.fabs(U[k][i] - u(i*h, 2))))
-    file.write('\n')
+    #file.write(str(h*i)+' \t'+str(U[k][i])+'\t'+str(math.fabs(U[k][i] - u(i*h, 2))))
+    #file.write('\n')
+    H_values.append(h*i)
+    U_values.append(U[k][i])
+    norma_values.append(math.fabs(U[k][i] - u(i*h, 2)))
+#file.close()
 
-file.close()
+
+frame2 = pd.DataFrame({'x': H_values,
+                       'u(x)': U_values,
+                       'e(x)': norma_values})
 
 
-X = [i for i in range(N+1)]
-U_ = [U[k][i] for i in range(N+1)]
-e_ = [math.fabs(U[k][i] - u(i*h, 2)) for i in range(N+1)]
+frame2.to_csv(os.getcwd() + '/results2.csv', index=False)
 
-plt.plot(X, U_, 'r')
-plt.show()
-plt.plot(X, e_)
-plt.show()
+
+values_to_plot = [(Thao_values, Y_values, F_values), (H_values, U_values, norma_values)]
+titles = [(' ||y|| (t) ', ' ||u-y||(t) '), ('U(x)', 'e(x)')]
+
+
+for i in range(2):
+    plt.title(titles[i][0])
+    plt.plot(values_to_plot[i][0], values_to_plot[i][1], 'r')
+    plt.show()
+    plt.title(titles[i][1])
+    plt.plot(values_to_plot[i][0], values_to_plot[i][2], 'r')
+    plt.show()
