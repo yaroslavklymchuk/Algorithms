@@ -136,8 +136,6 @@ def process(obj, N):
 N = 10000
 
 obj = Boundary_Task(1.600,-0.980, -2.069, 1.759,-0.078, 1.2, 1.5, 0, 1, 2, -1)
-process(obj, N)
-
 
 H = np.linspace(0.0001, 0.1, 100)
 answer = [y(Get_X(obj.x1, obj.x2, N)[0][i], obj.a, obj.b, obj.c, obj.d, obj.e) for i in range(N+1)]
