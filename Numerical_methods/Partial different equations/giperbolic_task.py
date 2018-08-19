@@ -130,13 +130,16 @@ frame2.to_csv(os.getcwd() + '/results2.csv', index=False)
 
 
 values_to_plot = [(Thao_values, Y_values, F_values), (H_values, U_values, norma_values)]
-titles = [(' ||y|| (t) ', ' ||u-y||(t) '), ('U(x)', 'e(x)')]
+titles = [('||y||(t) ', '||u-y||(t) '), ('U(x)', 'e(x)')]
 
 
 for i in range(2):
     plt.title(titles[i][0])
     plt.plot(values_to_plot[i][0], values_to_plot[i][1], 'r')
+    plt.savefig(os.getcwd() + "/%s.png" % titles[i][0])
     plt.show()
     plt.title(titles[i][1])
     plt.plot(values_to_plot[i][0], values_to_plot[i][2], 'r')
+    plt.savefig(os.getcwd() + "/%s.png" % titles[i][1])
     plt.show()
+

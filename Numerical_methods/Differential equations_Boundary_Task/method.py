@@ -23,6 +23,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import os
 
 y = lambda x, a, b, c, d, e: a * pow(x, 2) + b * x + c + 1 / (d * x + e)
 
@@ -158,5 +159,6 @@ for i in range(1):
     plt.title(titles[i])
     plt.xlabel(labels[i][0])
     plt.ylabel(labels[i][1])
+    plt.savefig(os.getcwd() + '/%s.png' % titles[i])
     plt.show()
 

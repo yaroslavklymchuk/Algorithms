@@ -1,7 +1,7 @@
 #НАЙТИ СВОЮ ФУНКЦИЮ
 
 import matplotlib.pyplot as plt
-import math
+import math, os
 import numpy as np
 import pandas as pd
 
@@ -125,6 +125,7 @@ for i in range(3):
     plt.legend(legends[i])
     plt.xlabel(labels[i][0])
     plt.ylabel(labels[i][1])
+    plt.savefig(os.getcwd() + '/%s.png' % titles[i])
     plt.show()
 
 
