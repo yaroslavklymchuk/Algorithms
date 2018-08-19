@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46a9f29e-6ab6-4a53-8674-ebd0cdcac5b9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/Runge-Cutta and Adams methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/Runge-Cutta and Adams methods.py" afterDir="false" />
-    </list>
+    <list default="true" id="46a9f29e-6ab6-4a53-8674-ebd0cdcac5b9" name="Default" comment="Changed real function" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,7 +9,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Algorithms$Numerical_Methods.coverage" NAME="Numerical_Methods Coverage Results" MODIFIED="1534670619163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Algorithms$Numerical_Methods.coverage" NAME="Numerical_Methods Coverage Results" MODIFIED="1534671537424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Algorithms$6_8.coverage" NAME="6-8 Coverage Results" MODIFIED="1534620420766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Eigenvalues and eigenvectors" />
     <SUITE FILE_PATH="coverage/Numerical_Methods$5_5.coverage" NAME="5-5 Coverage Results" MODIFIED="1518966948535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/5-5" />
   </component>
@@ -43,14 +41,14 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="csv" value="1" />
-          <entry key="ipynb" value="2" />
+          <entry key="ipynb" value="3" />
           <entry key="py" value="5" />
           <entry key="txt" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="IPNB" value="2" />
+          <entry key="IPNB" value="3" />
           <entry key="PLAIN_TEXT" value="13" />
           <entry key="Python" value="5" />
         </counts>
@@ -58,12 +56,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="6023" />
-          <entry key="txt" value="30" />
+          <entry key="txt" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="30" />
+          <entry key="PLAIN_TEXT" value="51" />
           <entry key="Python" value="6023" />
         </counts>
       </usages-collector>
@@ -74,36 +72,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/Runge_Cutt_and_Adams.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
               <selected id="0" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/results.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/Runge-Cutta and Adams methods.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-              <folding>
-                <element signature="e#136#190#0" />
-                <element signature="e#227#304#0" />
-                <element signature="e#329#383#0" />
-                <element signature="e#426#994#0" />
-                <element signature="e#1073#1483#0" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -484,7 +457,14 @@
       <option name="project" value="LOCAL" />
       <updated>1534625038924</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changed real function">
+      <created>1534671295994</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1534671295994</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -498,23 +478,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-30" width="1920" height="1062" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49915683" visible="true" weight="0.33333334" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50084317" side_tool="true" weight="0.32047158" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49785176" weight="0.3295583" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8874598" visible="true" weight="0.11353712" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8869239" visible="true" weight="0.11353712" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4989282" weight="0.39847162" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49464095" weight="0.5120087" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.11254019" side_tool="true" visible="true" weight="0.11353712" />
-      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4994641" weight="0.32969433" />
-      <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.89013934" weight="0.17685589" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.1130761" side_tool="true" visible="true" weight="0.11353712" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4989282" weight="0.32969433" />
+      <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.88960344" weight="0.17685589" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -529,12 +508,39 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add some functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add some functions" />
+    <MESSAGE value="Changed real function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed real function" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/SquareRoot_method for solving equation systems/Results.txt" />
@@ -567,6 +573,20 @@
     <entry file="file://$PROJECT_DIR$/Eigenvalues and eigenvectors/Jakobi method.py" />
     <entry file="file://$PROJECT_DIR$/Differential equations_Coshie_Task/Runge-Cutta and Adams methods.py" />
     <entry file="file://$PROJECT_DIR$/Differential equations_Coshie_Task/Runge_Cutt_and_Adams.ipynb" />
+    <entry file="file://$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/Runge-Cutta and Adams methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+          <folding>
+            <element signature="e#136#190#0" />
+            <element signature="e#227#304#0" />
+            <element signature="e#329#383#0" />
+            <element signature="e#426#994#0" />
+            <element signature="e#1073#1483#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/results.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -578,20 +598,6 @@
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Numerical_methods/Differential equations_Coshie_Task/Runge-Cutta and Adams methods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-          <folding>
-            <element signature="e#136#190#0" />
-            <element signature="e#227#304#0" />
-            <element signature="e#329#383#0" />
-            <element signature="e#426#994#0" />
-            <element signature="e#1073#1483#0" />
-          </folding>
         </state>
       </provider>
     </entry>
