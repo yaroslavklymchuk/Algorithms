@@ -141,7 +141,7 @@ def to_file(values):
     file.close()
 
 
-jakobi(matrix, 1e-5) # почему не держится точность??????
+jakobi(matrix, 1e-5) 
 
 
 eigenvals = get_diag_el(jakobi(matrix, 1e-5)[0])
