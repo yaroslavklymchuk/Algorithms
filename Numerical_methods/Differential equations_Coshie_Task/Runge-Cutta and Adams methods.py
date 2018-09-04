@@ -1,5 +1,3 @@
-#НАЙТИ СВОЮ ФУНКЦИЮ
-
 import matplotlib.pyplot as plt
 import math, os
 import numpy as np
