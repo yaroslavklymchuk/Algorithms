@@ -2,14 +2,15 @@ import numpy as np
 import random, os
 
 
-
 matrix = np.array([[7.14, 1.28, 0.79, 1.12],
                   [1.28, 3.28, 1.3, 0.16],
                   [0.79, 1.3, 6.32, 2.1],
                   [1.12, 0.16, 2.1, 5.22]])
 
+degree_values_max = []
+degree_values_min = []
 
-def Degree_method(matrix, eps):
+def Degree_method(matrix, eps, max=True):
     max_iter = 100
     X = [i for i in range(max_iter)]
     X[0] = np.array([i for i in range(matrix.shape[0])]).T
@@ -18,6 +19,7 @@ def Degree_method(matrix, eps):
     lambda_1 = (X[1][i]) / (X[0][i])
     lambda_0 = 1
     k = 1
+
     while (np.fabs(lambda_1 - lambda_0) > eps):
         X[k] = np.dot(matrix, X[k - 1])
         X[k + 1] = np.dot(matrix, X[k])
@@ -25,24 +27,43 @@ def Degree_method(matrix, eps):
         lambda_0 = (X[k][i]) / (X[k - 1][i])
         lambda_1 = X[k + 1][i] / X[k][i]
 
+        if max:
+            degree_values_max.append([k, lambda_1, X[k] / np.linalg.norm(X[k])])
+        else:
+            degree_values_min.append([k, lambda_1, X[k] / np.linalg.norm(X[k])])
         k += 1
+    if max:
+        degree_values_max.append([k, lambda_1,  X[k] / np.linalg.norm(X[k])])
+    else:
+        degree_values_min.append([k, lambda_1, X[k] / np.linalg.norm(X[k])])
+
     return lambda_1, X[k] / np.linalg.norm(X[k])
 
 
-def degree_results(matrix):
-    with open ('file_degree.txt', 'w') as file:
-        file.write('Max eigenvalue by degree method: {}'.format(Degree_method(matrix, 1e-5)[0]))
-        file.write('\n')
-        file.write('Eigenvector: {}'.format(Degree_method(matrix, 1e-5)[1]))
-        file.write('\n')
+def degree_results(matrix, eps, max=True):
+    if max==True:
+        Degree_method(matrix, eps, max)
+    else:
+        Degree_method(matrix, eps, True)
+        Degree_method(matrix - np.dot(Degree_method(matrix, 1e-5)[0], np.eye(4)), eps, max)
 
-        file.write('Min eigenvalue by degree method: {}' \
-              .format(Degree_method(matrix - \
-                np.dot(Degree_method(matrix, 1e-5)[0], np.eye(4)), 1e-5)[0] + \
-                      Degree_method(matrix, 1e-5)[0]))
-        file.write('\n')
-        file.write('Eigenvector: {}'.format(Degree_method(matrix - \
-             np.dot(Degree_method(matrix, 1e-5)[0], np.eye(4)), 1e-5)[1]))
+    if max == False:
+        with open ('file_degree.txt', 'a') as file:
+            for i in range(len(degree_values_min)):
+                if i < 27:
+                    file.write('iteration_number: {}\n'.format(degree_values_min[i][0]))
+                    file.write('lambda: {}\n'.format(degree_values_min[i][1] + degree_values_max[i][1]))
+                    file.write('Eigenvector: {}\n'.format(degree_values_min[i][2]))
+                    file.write('Residual vector: {}\n'.format(np.dot(matrix, degree_values_min[i][2]) - np.dot(degree_values_min[i][1], degree_values_min[i][2])))
+    else:
+        with open ('file_degree.txt', 'w') as file:
+            for i in range(len(degree_values_max)):
+                file.write('iteration_number: {}\n'.format(degree_values_max[i][0]))
+                file.write('lambda: {}\n'.format(degree_values_max[i][1]))
+                file.write('Eigenvector: {}\n'.format(degree_values_max[i][2]))
+                file.write('Residual vector: {}\n'.format(np.dot(matrix, degree_values_max[i][2]) - np.dot(degree_values_max[i][1], degree_values_max[i][2])))
+
+    file.close()
 
 def find_index(matrix):
     max_ = np.fabs(matrix[0][1])
@@ -87,7 +108,7 @@ def jakobi(matrix, eps):
     iter_ = 0
     Q = np.eye(matrix.shape[0])
 
-    while ((W_2(A)) > eps):
+    while ((W_2(A)) > pow(eps, 2)):
 
         i, j = find_index(A) # indexes of max non-diagonal element of matrix
 
@@ -141,7 +162,7 @@ def to_file(values):
     file.close()
 
 
-jakobi(matrix, 1e-5) 
+jakobi(matrix, 1e-5)
 
 
 eigenvals = get_diag_el(jakobi(matrix, 1e-5)[0])
@@ -154,7 +175,10 @@ print('Jakobi method eigenvalues: {}\n'.format(eigenvals))
 print('True eigenvectors: {}\n'.format(np.linalg.eig(matrix)[1].transpose()))
 print('Jakobi method eigenvectors: {}'.format(np.array([[el for el in vec] for vec in eigenvectors])))
 
+#Degree_method(matrix, 1e-5)
 
-degree_results(matrix)
+degree_results(matrix, 1e-5)
+degree_results(matrix, 1e-5, max=False)
+
 to_file(values)
 
